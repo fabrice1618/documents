@@ -69,6 +69,9 @@ Connexion du remote, à ne faire qu'une fois
 $ git remote add origin https://github.com/votre_github/project.git
 $ git remote -v
 ```
+
+## Mise à jour repository local
+
 Commande pour recevoir les MAJ du repository remote
 ```
 $ git pull origin main
@@ -89,6 +92,7 @@ git add .
 git add --all
 ```
 Enlever des fichiers de cette liste
+
 ```
 git rm --cached *.html
 ```
