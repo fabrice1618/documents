@@ -53,6 +53,12 @@ personne_id | prenom   | nom       | personne_id | metier_id | metier_id | metie
 Trouver les requêtes pour répondre aux questions suivantes
 
 - Afficher le genre et la nationalité des personnes célèbres ?
+```sql
+SELECT personne.nom, personne.prenom, pays.pays, genre.genre
+FROM personne
+JOIN pays ON personne.pays_id = pays.pays_id
+JOIN genre ON personne.genre_id = genre.genre_id
+```
 
 - Afficher les métiers de Léonard de vinci ?
 
