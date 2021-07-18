@@ -442,7 +442,7 @@ Dans un navigateur, aller à l'adresse 192.168.1.203 et vérifier que vous avez 
 ```
 $ cd /var/www/html
 $ sudo vi phpinfo.php
-fab@webserver:/var/www/html$ cat phpinfo.php
+$ cat phpinfo.php
 <?php
 phpinfo();
 ?>
@@ -462,5 +462,26 @@ syslog.ident = php
 syslog.facility = user
 syslog.filter = ascii
 
+```
+
+## 10 - VM2 - Installation serveur DNS
+
+Documentation: <https://doc.ubuntu-fr.org/bind9>
+
+### Installation de Bind
 
 ```
+$ sudo apt install bind9 dnsutils
+
+$ cd/etc/bind
+$ sudo vi named.conf.options
+
+        forwarders {
+                192.168.1.1;
+        };
+        listen-on port 53 { 127.0.0.1; 192.168.1.203; };
+        allow-query { localhost; 192.168.1.0/24; };
+
+$ sudo service bind9 restart
+```
+
