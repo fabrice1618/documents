@@ -2,7 +2,7 @@
 
 ## Connexion au serveur
 
-- URL : http://dbintro.fabricatic.fr
+- URL : http://dbintro.mips.science
 - Serveur : dbintro
 - utilisateur : myuser
 - mot de passe : pwd_myuser
