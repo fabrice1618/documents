@@ -4,6 +4,7 @@
 
 Je ré-utilise la configuration réalisée dans ./install_VM_devC.md jusqu'à "Environnement de développement C" non inclu.
 
+
 - Connexion SSH
 - Modification de l'adresse IP
 
@@ -15,6 +16,12 @@ $ sudo vi 00-installer-config.yaml
 $ sudo netplan apply
 ```
 - Nouvelle connexion SSH
+
+```bash
+$ ip a
+$ sudo ufw enable
+$ sudo ufw allow ssh
+```
 
 ```bash
 $ sudo sh -c "echo devphp > /etc/hostname"
