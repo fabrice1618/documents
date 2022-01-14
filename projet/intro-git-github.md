@@ -310,6 +310,27 @@ Pour contribuer à un projet
 
 - Permet d'utiliser le générateur de sites Jekyll
 
+Présentation de github pages sur github.com : https://pages.github.com/
+
+### Création d'une page web pour votre compte github
+- Création d'un nouveau repository ayant pour nom <username.github.io>
+- Dans le dossier de développement:
+```
+echo "Hello world" > index.html
+git init
+git add .
+git commit -m 'first commit'
+git push -u origin main
+```
+- créer une nouvelle entrée dans la zone DNS:
+fabrice.mips.science CNAME fabrice1618.github.io.
+- création d'un domaine personalisé
+https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/about-custom-domains-and-github-pages
+- Managing a custom domain for your GitHub Pages site
+https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-a-subdomain
+
+
+
 ## ssh keys
 
 Pour rendre la connexion automatique entre votre repository local et votre compte github.
