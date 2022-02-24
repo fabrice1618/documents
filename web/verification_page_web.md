@@ -1,12 +1,17 @@
 # Vérification de page web
 
 ## Indispensables
-https://validator.w3.org/
-https://pagespeed.web.dev/?hl=fr
-https://www.outiref.fr/
+
+[W3C - Markup Validation Service](https://validator.w3.org/)
+
+[Google - PageSpeed Insights](https://pagespeed.web.dev/?hl=fr)
+
+[Outiref - Audit SEO de page web](https://www.outiref.fr/)
 
 ## Utiles
-https://gtmetrix.com/
-https://alyze.com/
-https://www.webpagetest.org/
 
+[gtmetrix - analyse performance](https://gtmetrix.com/)
+
+[Alyze - Analyse SEO](https://alyze.com/)
+
+[webpagetest - Webpage Performance](https://www.webpagetest.org/)
