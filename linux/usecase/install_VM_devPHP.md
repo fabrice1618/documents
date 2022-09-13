@@ -2,31 +2,43 @@
 
 ## Configuration de base
 
-Je ré-utilise la configuration réalisée dans ./install_VM_devC.md jusqu'à "Environnement de développement C" non inclu.
+## Installation VM avec Ubuntu desktop 22.04
 
+- 2 cores
+- RAM 4 Go
+- HDD 15 Go (25 Go recommandés)
+- Configuration réseau bridge
+- installation minimale 
+  - pendant l'installation bien configurer le clavier
+  - penser à cocher openssh server pour installation
+- Après redemarrage, mettre à jour le système
 
-- Connexion SSH
-- Modification de l'adresse IP
-
-```bash
-$ cd /etc/netplan/
-$ ls
-00-installer-config.yaml
-$ sudo vi 00-installer-config.yaml
-$ sudo netplan apply
+Remise à jour de tous les logiciels installés
 ```
-- Nouvelle connexion SSH
+$ sudo apt update && sudo apt upgrade -y
+```
 
+- Vérification de l'install de openssh server
+```
+$ sudo systemctl status sshd
+$ netstat -tulp
+```
+
+- Install openssh server et vérification
+```
+$ sudo apt update
+$ sudo apt install openssh-server
+$ sudo systemctl status sshd
+$ netstat -tulp
+```
+
+- première connexion SSH à partir de votre machine. L'utilisation est plus facile.
+
+- Configuration du firewall pour l'accès SSH
 ```bash
 $ ip a
 $ sudo ufw enable
 $ sudo ufw allow ssh
-```
-
-```bash
-$ sudo sh -c "echo devphp > /etc/hostname"
-$ sudo hostname devphp
-$ sudo vi /etc/hosts
 ```
 
 Configuration firewall et vérification que les ports SSH et MySql sont ouverts.
@@ -50,40 +62,6 @@ To                         Action      From
 3306 (v6)                  ALLOW IN    Anywhere (v6)
 80/tcp (v6)                ALLOW IN    Anywhere (v6)
 
-```
-
-## Installation docker
-```
-$ sudo apt-get update && sudo apt-get upgrade
-
-$ sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common
-
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-$ sudo apt-key fingerprint 0EBFCD88
-
-$ sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-
-$ sudo apt-get update
-$ sudo apt-get install docker-ce docker-ce-cli containerd.io
-$ sudo docker run hello-world
-```
-Manage Docker as a non-root user
-```
-$ sudo groupadd docker
-$ sudo usermod -aG docker fab
-$ docker run hello-world
-```
-Installation de docker-compose
-```
-$ sudo apt install docker-compose
 ```
 
 ## Installation MySQL
@@ -148,7 +126,7 @@ GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION
 mysql> exit
 ```
 
-### Activation des logs
+### Activation des logs de MySQL et permettre l'accès au serveur MySQL depuis l'extérieur
 
 Activer tous les logs sur notre base de données. Cela nous permettra d'avoir un suivi de ce qu'il se passe sur le serveur.
 Activer le log principal dans /var/log/mysql/mysql.log
@@ -222,7 +200,7 @@ mysql> SHOW GRANTS FOR 'dba'@'localhost';
 mysql> exit;
 ```
 
-### Création de la base de données topsecurity et de l'utilisateur associé
+### Création de la base de données flopsecurity et de l'utilisateur associé
 
 On se connecte à MySQL comme utilisateur dba pour la création de la base de données.
 
@@ -241,7 +219,7 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> create database topsecurity;
+mysql> create database flopsecurity;
 Query OK, 1 row affected (0.11 sec)
 
 mysql> show databases;
@@ -252,32 +230,32 @@ mysql> show databases;
 | mysql              |
 | performance_schema |
 | sys                |
-| topsecurity          |
+| flopsecurity       |
 +--------------------+
 5 rows in set (0.00 sec)
 
 
-mysql> CREATE USER 'topsecurity'@'localhost' IDENTIFIED BY 'abcd';
-mysql> GRANT ALL PRIVILEGES ON topsecurity.* TO 'topsecurity'@'localhost' WITH GRANT OPTION;
+mysql> CREATE USER 'flopsecurity'@'localhost' IDENTIFIED BY 'abcd';
+mysql> GRANT ALL PRIVILEGES ON flopsecurity.* TO 'flopsecurity'@'localhost' WITH GRANT OPTION;
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> FLUSH PRIVILEGES;
 Query OK, 0 rows affected (0.00 sec)
 
-mysql> SHOW GRANTS FOR 'topsecurity'@'localhost';
+mysql> SHOW GRANTS FOR 'flopsecurity'@'localhost';
 +------------------------------------------------------------------------------------+
-| Grants for topsecurity@localhost                                                     |
+| Grants for flopsecurity@localhost                                                     |
 +------------------------------------------------------------------------------------+
-| GRANT USAGE ON *.* TO `topsecurity`@`localhost`                                      |
-| GRANT ALL PRIVILEGES ON `topsecurity`.* TO `topsecurity`@`localhost` WITH GRANT OPTION |
+| GRANT USAGE ON *.* TO `flopsecurity`@`localhost`                                      |
+| GRANT ALL PRIVILEGES ON `flopsecurity`.* TO `flopsecurity`@`localhost` WITH GRANT OPTION |
 +------------------------------------------------------------------------------------+
 2 rows in set (0.00 sec)
 
 mysql> exit;
 ```
-Test de la connexion de l'utilisateur topsecurity à la base de données topsecurity
+Test de la connexion de l'utilisateur flopsecurity à la base de données flopsecurity
 ```
-$ mysql -u topsecurity -p
+$ mysql -u flopsecurity -p
 Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 10
@@ -291,7 +269,7 @@ owners.
 
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
-mysql> use topsecurity;
+mysql> use flopsecurity;
 Database changed
 mysql> show tables;
 Empty set (0.01 sec)
@@ -323,22 +301,26 @@ $ ls -ltr
 $ zcat all-databases.tar.gz
 ```
 
-Sauvegarde de la base de données topsecurity
+Sauvegarde de la base de données flopsecurity
 ```
-$ mysqldump -u dba -p topsecurity | gzip -9 > topsecurity.tar.gz
+$ mysqldump -u dba -p flopsecurity | gzip -9 > flopsecurity.tar.gz
 Enter password:
 $ ls -ltr
 -rw-rw-r-- 1 fab fab 241440 Dec 14 01:56 all-databases.tar.gz
--rw-rw-r-- 1 fab fab    458 Dec 14 02:00 topsecurity.tar.gz
+-rw-rw-r-- 1 fab fab    458 Dec 14 02:00 flopsecurity.tar.gz
 
-$ zcat topsecurity.tar.gz
+$ zcat flopsecurity.tar.gz
 ```
 
 ### Restauration de la base de données
 
+Quelle est la ou les commandes permettant de restaurer la base de données ?
 
 
-## Installation apache 2 et PHP 7
+## Installation apache 2 et PHP 8
+
+Vous devriez avoir PHP8 installé.
+
 
 ```
 $ sudo apt install apache2 php libapache2-mod-php php-mysql
@@ -374,7 +356,7 @@ $ ls
 index.html
 ```
 
-Dans un navigateur, aller à l'adresse 192.168.1.23 et vérifier que vous avez accès à la page par défaut de Apache 2.
+Dans un navigateur, aller à l'adresse 192.168.1.23 (adapter à votre adresse IP) et vérifier que vous avez accès à la page par défaut de Apache 2.
 
 ### Configuration PHP developpement
 
@@ -386,10 +368,6 @@ conf.d  php.ini
 $ sudo cp /usr/lib/php/7.4/php.ini-development php.ini
 $ vi php.ini
 ```
-
-### Création d'un virtual host apache ?
-
-### Tester PHP 8 dans un container docker ?
 
 ## Copie de fichiers entre poste de travail et VM
 
@@ -413,6 +391,8 @@ log.php                                       100% 4441     1.1MB/s   00:00
 
 ```
 
+Pour ma part, j'utilise l'editeur vi. Vous pouvez remplacer vi par nano qui est probablement plus simple dans un premier temps.
+
 ```bash
 $ cd /var/www/html
 $ ls -l
@@ -431,5 +411,28 @@ phpinfo();
 
 ### Connexion à partir de VS Code
 
-- Modifier la connexion BDD dans database.php
+- Installation de l'extension remote-SSH
+- Ajout d'une connexion vers le serveur (^ shift P)ajouter un nouvel hôte SSH
+- se connecter à l'hôte créé
+
+### Mise en route de l'application flopsecurity
+
+- Modifier la connexion BDD dans database.php en fonction des paramètres utilisés pendant l'installation
 - 
+
+### Premières requètes SQL
+
+- Affichage du contenu de la table contenant les utilisateurs
+- Déterminer la requète permettant d'afrficher les informations pour un utilisateur
+
+### Test de la sécurité de l'application
+
+- réaliser une injection SQL (SQLI)
+- réaliser une attaque XSS
+
+En option:
+- réaliser un programme (par exemple en python) pour réaliser un brute-force sur le mot de passe d'un des utilisateurs
+
+### Réalisation d'un audit de sécurité
+
+Utilisation de Burp suite
