@@ -21,6 +21,7 @@ $ sudo apt update && sudo apt upgrade -y
 - Vérification de l'install de openssh server
 ```
 $ sudo systemctl status sshd
+$ sudo apt install net-tools
 $ netstat -tulp
 ```
 
@@ -362,7 +363,7 @@ Dans un navigateur, aller à l'adresse 192.168.1.23 (adapter à votre adresse IP
 
 ```
 $ find / -name 'php.ini-development' -print 2> /dev/null
-$ cd /etc/php/7.4/cli
+$ cd /etc/php/8.1/cli
 $ ls
 conf.d  php.ini
 $ sudo cp /usr/lib/php/7.4/php.ini-development php.ini
