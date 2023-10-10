@@ -269,6 +269,7 @@ i) $ md5sum -c bonjour.md
 j) $ touch bonjour.txt
 k) $ cat bonjour.txt | tr -s ’ ’ ’.’
 ```
+> Note : tac & md5sum ne fonctionne pas sous Macos (pas installés par défaut)
 
 Question 12. Donnez la ligne de commande qui permet d’écraser le contenu du fichier bonjour.txt.
 
@@ -290,7 +291,7 @@ Question 14. On désire compter le nombre de caractères d’un fichier texte. Q
 ```
 a) $ echo "Hello world" > bonjour.txt
 b) $ wc -c bonjour.txt
-c)$ cat bonjour.txt | wc -c
+c) $ cat bonjour.txt | wc -c
 d) $ ls -l bonjour.txt
 ```
 
