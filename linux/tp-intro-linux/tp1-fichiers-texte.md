@@ -200,6 +200,7 @@ Vous pouvez modifier ’w’ en ’W’ :
 $ hexedit bonjour.txt
 $ cat bonjour.txt
 ```
+> Note : ne fonctionne pas sous MacOS, la commande hexdump existe, mais pas hexedit
 
 Remarque : il est impossible en utilisant les services de l’OS de supprimer ou d’insérer du texte dans un fichier (sauf à la fin). Ce sont des opérations bien trop complexes car elles nécessiteraient un décalage d’un ensemble d’octets dans le fichier. Pour réaliser cela, il faut soit utiliser un éditeur de texte soit écrire soi-même un programme équivalent.
 
