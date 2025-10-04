@@ -24,6 +24,4 @@ Cette liste répertorie les documents obsolètes du dépôt qui nécessitent une
 
 ## Recommandations
 
-- **Supprimer** : `database/initiation_db - Copie.md` (fichier dupliqué)
 - **Mettre à jour** : Les 5 autres documents avec les versions actuelles des logiciels et systèmes d'exploitation
-- **Archiver** : Considérer la création d'un dossier `archive/` pour les documents historiques qui ne seront plus maintenus
