@@ -1,3 +1,5 @@
+**Obsolète**
+
 # Installation d'une VM pour le développement PHP
 
 ## Configuration de base

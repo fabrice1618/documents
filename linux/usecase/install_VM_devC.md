@@ -1,3 +1,5 @@
+**Obsolète**
+
 # Installation d'une machine virtuelle Linux développement C
 
 ## HyperV

@@ -1,3 +1,5 @@
+**Obsolète**
+
 # Initiation bases de données : Les personnes célèbres
 
 ## Connexion au serveur
