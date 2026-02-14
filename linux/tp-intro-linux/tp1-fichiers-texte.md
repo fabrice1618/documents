@@ -200,6 +200,7 @@ Vous pouvez modifier ’w’ en ’W’ :
 $ hexedit bonjour.txt
 $ cat bonjour.txt
 ```
+> Note : ne fonctionne pas sous MacOS, la commande hexdump existe, mais pas hexedit
 
 Remarque : il est impossible en utilisant les services de l’OS de supprimer ou d’insérer du texte dans un fichier (sauf à la fin). Ce sont des opérations bien trop complexes car elles nécessiteraient un décalage d’un ensemble d’octets dans le fichier. Pour réaliser cela, il faut soit utiliser un éditeur de texte soit écrire soi-même un programme équivalent.
 
@@ -268,6 +269,7 @@ i) $ md5sum -c bonjour.md
 j) $ touch bonjour.txt
 k) $ cat bonjour.txt | tr -s ’ ’ ’.’
 ```
+> Note : tac & md5sum ne fonctionne pas sous Macos (pas installés par défaut)
 
 Question 12. Donnez la ligne de commande qui permet d’écraser le contenu du fichier bonjour.txt.
 
@@ -289,7 +291,7 @@ Question 14. On désire compter le nombre de caractères d’un fichier texte. Q
 ```
 a) $ echo "Hello world" > bonjour.txt
 b) $ wc -c bonjour.txt
-c)$ cat bonjour.txt | wc -c
+c) $ cat bonjour.txt | wc -c
 d) $ ls -l bonjour.txt
 ```
 
